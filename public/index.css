@@ -1,0 +1,207 @@
+.main{
+  background-color: #181b1e !important;
+  padding-top: 0 !important;
+}
+
+#deckContainer{
+  width: 100%; 
+}
+
+#deckContainer>div{
+  width: 50%; 
+  margin: 0 auto
+}
+
+.cardFontSize{
+  font-size: 25px
+}
+
+.img_card{
+  object-fit: cover;
+}
+
+.iconMedium{
+  font-size: 16px;
+}
+
+.inputWidth{
+  width: -webkit-fill-available !important
+}
+
+.cardClass{
+  position: relative;
+}
+
+.lh-100{
+  line-height: 100% !important;
+}
+
+.borderColorModal{
+  border-color: #495057 !important;
+}
+
+.flipCardBtn{
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  color-interpolation-filters: #f8f9fa;
+  border: solid 1px #f8f9fa;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.flipCardBtn:hover{
+  transform: scale(1.1);
+}
+
+.btnTable:hover{
+  transition: 0.3s;
+  transform: scale(1.1);
+}
+
+.layoutBtns{
+  position: absolute;
+  right: 20px;
+  top: 0;
+}
+
+.mainClass{
+  position: relative;
+}
+
+.btnLayoutActive{
+  color: #f8f9fa;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Animation card */
+.card_animation{
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  height: 400px; 
+  width: 280px; 
+}
+
+.card_face {
+  transition: 0.3s;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.card__face--front {
+}
+
+.card__face--back {
+  transform: rotateY( 180deg );
+}
+
+.card_is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Modal  */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.showModal {
+  display: block !important;
+  z-index: 22;
+}
+
+.modal-content-custom {
+  position: relative;
+  width: 350px;
+  height: auto;
+  background-color: #343A40;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 10px;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+.closeModal{
+  position: absolute;
+  right: 15px;
+  color: #f8f9fa;
+  float: right;
+}
+
+.closeModal:hover,
+.closeModal:focus {
+  color:  #f8f9fa;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.tittleModal{
+  position: absolute;
+  left: 15px;
+  float: right;
+}
+
+
+.imgModalCont{
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.imgModal{
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* Utils Clases */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.noBackgrounColor {
+  background-color: transparent;
+  border-color: #6c757d;
+}
