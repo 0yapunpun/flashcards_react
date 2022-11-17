@@ -20,3 +20,15 @@ To run this project:
 - React
 - Bootstrap
 
+
+## Site
+![Light mode](./screenshots/1.png)
+
+![Light mode](./screenshots/2.png)
+
+![Light mode](./screenshots/3.png)
+
+![Light mode](./screenshots/4.png)
+
+
+
