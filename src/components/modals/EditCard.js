@@ -3,40 +3,42 @@ import React, { useState, useEffect } from "react";
 const config = require("../../config");
 
 function Modal({
+  showModalList,
   isVisibleModal,
-  showModal,
-  getDataDecks,
+  currentCard,
   currentDeck,
   updateCurrentDeck,
 }) {
   const [state, setState] = useState({
-    name: "",
+    question: currentCard == null ? "" : currentCard.question,
+    answer: currentCard == null ? "" : currentCard.answer,
   });
 
   const handleInputChange = (e) => {
     setState({
       ...state,
-      name: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const sendNewDeck = async (e) => {
+  const editCard = async () => {
     try {
-      const RawResponse = await fetch(config.service + "/deck/edit", {
+      const RawResponse = await fetch(config.service + "/deck/card/edit", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: currentDeck._id,
-          name: state.name,
+          idDeck: currentDeck == null ? "" : currentDeck._id,
+          idCard: currentCard == null ? "" : currentCard._id,
+          question: state.question,
+          answer: state.answer,
         }),
       });
       const response = await RawResponse.json();
 
-      getDataDecks();
-      updateCurrentDeck();
+      updateCurrentDeck(true);
     } catch (error) {
       console.log(error);
     }
@@ -45,25 +47,38 @@ function Modal({
   return (
     <div className={"modal " + (isVisibleModal == true ? "showModal" : "")}>
       <div className="modal-content-custom">
-        <span onClick={(e) => showModal(false)} className="closeModal noselect">
+        <span
+          onClick={(e) => showModalList(false)}
+          className="closeModal noselect"
+        >
           &times;
         </span>
 
         <span className="tittleModal noselect">
-          <h5 className="modal-title">Edit Deck</h5>
+          <h5 className="modal-title">Edit Card</h5>
         </span>
 
         <div className="mt-4">
           <div>
             <div className="modal-body">
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  onChange={handleInputChange}
-                  type="text"
-                  className="form-control"
-                  placeholder=""
-                />
+              <div className="form-group d-flex flex-column">
+                <label>Question</label>
+                <textarea
+                  onChange={(e) => handleInputChange(e)}
+                  value={state.question}
+                  className="form-contro p-1"
+                  id="inputNewCardQuestion"
+                  name="question"
+                ></textarea>
+
+                <label className="mt-3">Answer</label>
+                <textarea
+                  onChange={(e) => handleInputChange(e)}
+                  value={state.answer}
+                  className="form-contro p-1"
+                  id="inputNewCardAnswer"
+                  name="answer"
+                ></textarea>
               </div>
             </div>
             <div className="modal-footer borderColorModal justify-content-center">
@@ -75,11 +90,11 @@ function Modal({
                 Cancel
               </button>
               <button
-                onClick={() => sendNewDeck()}
+                onClick={() => editCard()}
                 type="button"
                 className="btn btn-outline-primary"
               >
-                Accept
+                Save
               </button>
             </div>
           </div>

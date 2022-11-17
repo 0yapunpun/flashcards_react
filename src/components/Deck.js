@@ -6,10 +6,12 @@ function Deck({
   currentName,
   showModalEditDeck,
   showModalNewCard,
+  showModalCardsList,
   updateCurrentDeck,
+  showModalCardView,
 }) {
   const deleteDeck = async (id) => {
-    if (!window.confirm("¿Está seguro de eliminar este Mazo?")) return;
+    if (!window.confirm("Are you sure of delete this deck?")) return;
 
     try {
       const RawResponse = await fetch(config.service + "/deck/delete/" + id);
@@ -60,7 +62,7 @@ function Deck({
               <h1 id="amountCards" className="text-Light bold">
                 {currentDeck.cards.length || "0"}
               </h1>
-              <span className="cardFontSize">Tarjetas</span>
+              <span className="cardFontSize">Cards</span>
             </div>
           </div>
 
@@ -69,8 +71,9 @@ function Deck({
               id="btnStudySession"
               type="button"
               className="btn mb-1 btn-primary"
+              onClick={(e) => showModalCardView(true)}
             >
-              Sesión de Estudio
+              Study Session
             </button>
             <button
               id="btnOpenCard"
@@ -80,7 +83,7 @@ function Deck({
               className="btn mb-1 btn-success mx-3"
               onClick={() => showModalNewCard(true)}
             >
-              Crear Tarjeta
+              Create Card
             </button>
             <button
               id="btnOpenCardsLst"
@@ -88,8 +91,9 @@ function Deck({
               data-target="#modalCadsList"
               type="button"
               className="btn mb-1 btn-warning"
+              onClick={() => showModalCardsList(true)}
             >
-              Lista de Tarjetas
+              Cards List
             </button>
           </div>
         </div>

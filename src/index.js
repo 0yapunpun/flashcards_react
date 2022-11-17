@@ -13,3 +13,9 @@ root.render(
     <App />
   </>
 );
+
+// TODO
+// Pasar a ingles
+// Lista de tarjetas
+// Sension de estudio
+// Sistema de sesion

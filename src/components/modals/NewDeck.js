@@ -30,6 +30,7 @@ function Modal({ isVisibleModal, showModal, getDataDecks }) {
       const response = await RawResponse.json();
 
       getDataDecks();
+      showModal(false);
     } catch (error) {
       console.log(error);
     }
@@ -43,14 +44,14 @@ function Modal({ isVisibleModal, showModal, getDataDecks }) {
         </span>
 
         <span className="tittleModal noselect">
-          <h5 className="modal-title">Crear Mazo</h5>
+          <h5 className="modal-title">Create Deck</h5>
         </span>
 
         <div className="mt-4">
           <div>
             <div className="modal-body">
               <div className="form-group">
-                <label>Nombre</label>
+                <label>Name</label>
                 <input
                   onChange={handleInputChange}
                   value={state.name}
@@ -66,14 +67,14 @@ function Modal({ isVisibleModal, showModal, getDataDecks }) {
                 className="btn btn-outline-secondary"
                 data-dismiss="modal"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={sendNewDeck}
                 type="button"
                 className="btn btn-outline-primary"
               >
-                Crear
+                Create
               </button>
             </div>
           </div>

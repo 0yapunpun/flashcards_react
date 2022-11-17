@@ -5,12 +5,12 @@ function Sidebar({ decks, showModal, setCurrentDeck }) {
         <div className="sidebar-menu">
           <ul>
             <li className="header-menu d-flex align-items-center justify-content-between">
-              Mazos
+              Decks
               <button
                 onClick={() => showModal(true)}
                 type="button"
                 className="btn btn-flat mb-1 btn-outline-secondary d-flex"
-                title="Crear Mazo"
+                title="Create Deck"
               >
                 <span className="material-symbols-outlined">add</span>
               </button>

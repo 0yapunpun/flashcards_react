@@ -40,6 +40,23 @@
   border-color: #495057 !important;
 }
 
+.hideElement{
+  display: none !important;
+}
+
+.cursorPointer{
+  cursor: pointer;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none !important;
+}
+
 .flipCardBtn{
   position: absolute;
   top: -10px;
@@ -86,13 +103,14 @@
   position: relative;
   transition: transform 1s;
   transform-style: preserve-3d;
-  height: 400px; 
-  width: 280px; 
+  height: 350px; 
+  width: 100%; 
 }
 
 .card_face {
+  background-color: #343A40;
   transition: 0.3s;
-  position: absolute;
+  position: absolute !important;
   height: 100%;
   width: 100%;
   backface-visibility: hidden;
@@ -190,6 +208,8 @@
   to {top:0; opacity:1}
 }
 
+
+
 /* Utils Clases */
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -201,7 +221,80 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+/* Modal Study */
+#upThumbBtn{
+  transition: 0.3s;
+}
+
+#upThumbBtn:hover{
+  color: #3e8e41;
+  margin-bottom: 10px;
+  transform: scale(1.2)
+}
+
+.upThumbBtnActive{
+  color: #3e8e41;
+  margin-bottom: 10px;
+  transform: scale(1.2);
+  pointer-events: none;
+}
+
+#downThumbBtn{
+  transition: 0.3s;
+}
+
+#downThumbBtn:hover{
+  color: red;
+  margin-top: 10px;
+  transform: scale(1.2)
+}
+
+.downThumbBtnActive{
+  color: red;
+  margin-top: 10px;
+  transform: scale(1.2);
+  pointer-events: none;
+}
+
+#upHand{
+  transition: 0.3s;
+}
+
+#upHand:hover{
+  color: #FFF38C;
+  transform: scale(1.2)
+}
+
+.upHandActive{
+  color: #FFF38C;
+  transform: scale(1.2);
+  pointer-events: none;
+}
+
+.inactiveHandsButtons {
+  pointer-events: none !important;
+}
+
+
 .noBackgrounColor {
   background-color: transparent;
   border-color: #6c757d;
+}
+
+.iconSideCard{
+  transition: 0.3s;
+}
+
+.iconSideCard:hover{
+  color: white;
+  transform: scale(1.1)
+}
+
+#showResponseCard{
+  transition: 0.3s;
+}
+
+#showResponseCard:hover{
+  color: white;
+  transform: scale(1.1)
 }

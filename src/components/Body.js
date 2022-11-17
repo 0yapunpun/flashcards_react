@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import Deck from "./Deck";
@@ -6,15 +5,22 @@ import Sidebar from "./Sidebar";
 import ModalNewDeck from "./modals/NewDeck";
 import ModalEditDeck from "./modals/EditDeck";
 import ModalNewCard from "./modals/NewCard";
+import ModalEditCard from "./modals/EditCard";
+import ModalCardsList from "./modals/CardsList";
+import ModalViewCard from "./modals/ViewCard";
 
 const config = require("../config");
 
-function Body({state, getDataDecks}) {
+function Body({ state, getDataDecks }) {
   const [stateBody, setStateBody] = useState({
     currentDeck: null,
+    currentCard: null,
     isVisibleModalNewDeck: false,
     isVisibleModalEditDeck: false,
     isVisibleModalNewCard: false,
+    isVisibleModalCardsList: false,
+    isVisibleModalEditCard: false,
+    isVisibleViewCard: false,
   });
 
   const setCurrentDeck = (id) => {
@@ -27,7 +33,7 @@ function Body({state, getDataDecks}) {
     });
   };
 
-  const updateCurrentDeck = async() => {
+  const updateCurrentDeck = async (showCardListModal) => {
     try {
       const RawResponse = await fetch(config.service + "/deck/getDeck", {
         method: "POST",
@@ -42,6 +48,17 @@ function Body({state, getDataDecks}) {
       const response = await RawResponse.json();
 
       if (response.success) {
+        if (showCardListModal) {
+          return setStateBody({
+            ...stateBody,
+            currentDeck: response.data[0],
+            isVisibleModalNewCard: false,
+            isVisibleModalEditDeck: false,
+            isVisibleModalEditCard: false,
+            isVisibleModalCardsList: true,
+          });
+        }
+
         setStateBody({
           ...stateBody,
           currentDeck: response.data[0],
@@ -49,19 +66,9 @@ function Body({state, getDataDecks}) {
           isVisibleModalEditDeck: false,
         });
       }
-
     } catch (error) {
       console.log(error);
     }
-
-  };
-
-  const setCurrentName = (newName) => {
-    setStateBody({
-      ...stateBody,
-      currentName: newName,
-      isVisibleModalEditDeck: false,
-    });
   };
 
   const showModalNewDeck = (newState) => {
@@ -72,6 +79,7 @@ function Body({state, getDataDecks}) {
   };
 
   const showModalEditDeck = (newState) => {
+    console.log("here", newState);
     setStateBody({
       ...stateBody,
       isVisibleModalEditDeck: newState,
@@ -85,6 +93,37 @@ function Body({state, getDataDecks}) {
     });
   };
 
+  const showModalCardsList = (newState) => {
+    setStateBody({
+      ...stateBody,
+      isVisibleModalCardsList: newState,
+    });
+  };
+
+  const showModalCardView = (newState) => {
+    setStateBody({
+      ...stateBody,
+      isVisibleViewCard: newState,
+    });
+  };
+
+  const toggleModalEdit = (newState, currentCard) => {
+    if (currentCard == null) {
+      console.log("here?");
+      return setStateBody({
+        ...stateBody,
+        isVisibleModalEditCard: newState,
+        isVisibleModalCardsList: !newState,
+      });
+    }
+
+    setStateBody({
+      ...stateBody,
+      isVisibleModalEditCard: newState,
+      isVisibleModalCardsList: !newState,
+      currentCard: currentCard,
+    });
+  };
 
   return (
     <React.Fragment>
@@ -98,42 +137,77 @@ function Body({state, getDataDecks}) {
         <div className="w-100 d-flex justify-content-center ">
           {stateBody.currentDeck == null ? (
             <div id="messageSelectDeck" className="mt-5 mb-5">
-              <h5>Seleccione algún mazo</h5>
+              <h5>Select a Deck</h5>
             </div>
           ) : (
-            <Deck 
-              currentDeck={stateBody.currentDeck} 
+            <Deck
+              currentDeck={stateBody.currentDeck}
               currentName={stateBody.currentName}
-              getDataDecks={getDataDecks} 
+              getDataDecks={getDataDecks}
               showModalEditDeck={showModalEditDeck}
               showModalNewCard={showModalNewCard}
+              showModalCardsList={showModalCardsList}
+              showModalCardView={showModalCardView}
             />
           )}
         </div>
       </div>
 
-      <ModalNewDeck
-        isVisibleModal={stateBody.isVisibleModalNewDeck}
-        showModal={showModalNewDeck}
-        getDataDecks={getDataDecks}
-      />
+      {stateBody.isVisibleModalNewDeck ? (
+        <ModalNewDeck
+          isVisibleModal={stateBody.isVisibleModalNewDeck}
+          showModal={showModalNewDeck}
+          getDataDecks={getDataDecks}
+        />
+      ) : null}
 
-      <ModalEditDeck
-        isVisibleModal={stateBody.isVisibleModalEditDeck}
-        showModal={showModalEditDeck}
-        getDataDecks={getDataDecks}
-        currentDeck={stateBody.currentDeck}
-        updateCurrentDeck={updateCurrentDeck}
-      />
+      {stateBody.isVisibleModalEditDeck ? (
+        <ModalEditDeck
+          isVisibleModal={stateBody.isVisibleModalEditDeck}
+          showModal={showModalEditDeck}
+          getDataDecks={getDataDecks}
+          currentDeck={stateBody.currentDeck}
+          updateCurrentDeck={updateCurrentDeck}
+        />
+      ) : null}
 
-      <ModalNewCard
-        isVisibleModal={stateBody.isVisibleModalNewCard}
-        showModal={showModalNewCard}
-        currentDeck={stateBody.currentDeck}
-        updateCurrentDeck={updateCurrentDeck}
-      />
+      {stateBody.isVisibleModalNewCard ? (
+        <ModalNewCard
+          isVisibleModal={stateBody.isVisibleModalNewCard}
+          showModal={showModalNewCard}
+          currentDeck={stateBody.currentDeck}
+          updateCurrentDeck={updateCurrentDeck}
+        />
+      ) : null}
 
+      {stateBody.isVisibleModalCardsList ? (
+        <ModalCardsList
+          isVisibleModal={stateBody.isVisibleModalCardsList}
+          showModal={showModalCardsList}
+          showModalEdit={toggleModalEdit}
+          currentDeck={stateBody.currentDeck}
+          updateCurrentDeck={updateCurrentDeck}
+        />
+      ) : null}
 
+      {stateBody.isVisibleModalEditCard ? (
+        <ModalEditCard
+          isVisibleModal={stateBody.isVisibleModalEditCard}
+          showModalList={toggleModalEdit}
+          currentCard={stateBody.currentCard}
+          currentDeck={stateBody.currentDeck}
+          updateCurrentDeck={updateCurrentDeck}
+        />
+      ) : null}
+
+      {stateBody.isVisibleViewCard ? (
+        <ModalViewCard
+          isVisibleModal={stateBody.isVisibleViewCard}
+          showModal={showModalCardView}
+          currentCard={stateBody.currentCard}
+          currentDeck={stateBody.currentDeck}
+        />
+      ) : null}
     </React.Fragment>
   );
 }
