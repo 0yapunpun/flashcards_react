@@ -1,4 +1,4 @@
-FLashcards Application
+# FLashcards Application
 
 [Backend](https://github.com/0yapunpun/flashcards_back)
 
