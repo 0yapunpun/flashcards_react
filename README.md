@@ -15,3 +15,8 @@ To run this project:
    ```sh
    npm start
    ```
+   
+## Built with 
+- React
+- Bootstrap
+
