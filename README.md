@@ -1,4 +1,4 @@
-[Backend] (https://github.com/0yapunpun/flashcards_back)
+[Backend](https://github.com/0yapunpun/flashcards_back)
 
 ## Setup
 To run this project: 
